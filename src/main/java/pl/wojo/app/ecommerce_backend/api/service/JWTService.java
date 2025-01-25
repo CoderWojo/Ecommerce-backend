@@ -31,10 +31,6 @@ public class JWTService {
 
     @PostConstruct
     public void postConstruct() {
-        System.out.println("SECRET_KEY = " + SECRET_KEY);
-        System.out.println("ISSUER = " + ISSUER);
-        System.out.println("expiryInSeconds = " + expiryInSeconds);
-
         algorithm = Algorithm.HMAC256(SECRET_KEY); 
     }
 
@@ -49,8 +45,8 @@ public class JWTService {
             .sign(algorithm);   // podpisanie tokenu
     }
 
-    // // Weryfikacja tokenu
-    // public boolean validateToken(String token) {
-
-    // }
+    // For checking wheter the User account is active/not banned
+    public String getUsername(String JWTtoken) {
+        return JWT.decode(JWTtoken).getClaim(USERNAME).asString();
+    }
 }
